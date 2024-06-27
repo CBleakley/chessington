@@ -11,9 +11,6 @@ export default class Pawn extends Piece {
 
     public getAvailableMoves(board: Board) {
 
-        let validMoves: Square[] = [];
-        let currentSquare: Square = board.findPiece(this);
-        let possibleNextSquare: Square;
         let startingRow: number;
         let pieceDirection: number; // positive for moving up board, negative for moving down
 
@@ -26,12 +23,19 @@ export default class Pawn extends Piece {
             pieceDirection = -1;
         }
 
-        if (currentSquare.row == startingRow){
-            possibleNextSquare = new Square(currentSquare.row + (2 * pieceDirection), currentSquare.col);
-            validMoves.push(possibleNextSquare);
-        }
+        let validMoves: Square[] = [];
+        const currentSquare: Square = board.findPiece(this);
+        let possibleNextSquare;
+
         possibleNextSquare = new Square(currentSquare.row + (1 * pieceDirection), currentSquare.col);
-        validMoves.push(possibleNextSquare);
+        if(board.getPiece(possibleNextSquare) === undefined) {
+            validMoves.push(possibleNextSquare);
+            
+            if (currentSquare.row == startingRow) {
+                possibleNextSquare = new Square(currentSquare.row + (2 * pieceDirection), currentSquare.col);
+                if(board.getPiece(possibleNextSquare) === undefined) validMoves.push(possibleNextSquare);
+            }
+        }
 
         return validMoves;
     }
