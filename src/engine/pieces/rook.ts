@@ -8,6 +8,6 @@ export default class Rook extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        return this.getLateralSquares(board);
+        return board.getLateralSquares(board.findPiece(this));
     }
 }

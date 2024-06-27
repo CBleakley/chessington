@@ -44,6 +44,33 @@ export default class Board {
         return square.col >= 0 && square.col < GameSettings.BOARD_SIZE && square.row >= 0 && square.row < GameSettings.BOARD_SIZE;
     }
 
+    public getLateralSquares(startingSquare: Square) {
+        let lateralSquares: Square[] = [];
+
+        for(let i: number = 0; i < GameSettings.BOARD_SIZE; i++) {
+            if (i !== startingSquare.col) lateralSquares.push(new Square(startingSquare.row, i));
+            if (i !== startingSquare.row) lateralSquares.push(new Square(i, startingSquare.col));
+        }
+
+        return lateralSquares;
+    }
+
+    public getDiagonalSquares(startingSquare: Square) {
+        let diagonalSquares: Square[] = [];
+        let currentRow= startingSquare.row;
+        let currentCol= startingSquare.col;
+        let displacement;
+
+        for (let i = 0; i < GameSettings.BOARD_SIZE; i++){
+            displacement = Math.abs(currentRow - i);
+            if(displacement === 0) continue;
+            diagonalSquares.push(new Square(i, currentCol - displacement));
+            diagonalSquares.push(new Square(i, currentCol + displacement));
+        }
+
+        return diagonalSquares.filter(square => this.isSquareOnBoard(square));
+    }
+
     private createBoard() {
         const board = new Array(GameSettings.BOARD_SIZE);
         for (let i = 0; i < board.length; i++) {
