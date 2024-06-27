@@ -40,6 +40,10 @@ export default class Board {
         }
     }
 
+    public isSquareOnBoard(square:Square) {
+        return square.col >= 0 && square.col < GameSettings.BOARD_SIZE && square.row >= 0 && square.row < GameSettings.BOARD_SIZE;
+    }
+
     private createBoard() {
         const board = new Array(GameSettings.BOARD_SIZE);
         for (let i = 0; i < board.length; i++) {
