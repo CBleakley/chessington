@@ -8,6 +8,7 @@ export default class Queen extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        return new Array(0);
+        let currentSquare = board.findPiece(this);
+        return board.getDiagonalSquares(currentSquare).concat(board.getLateralSquares(currentSquare));
     }
 }
