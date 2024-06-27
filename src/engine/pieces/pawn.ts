@@ -30,7 +30,7 @@ export default class Pawn extends Piece {
         possibleNextSquare = new Square(currentSquare.row + (1 * pieceDirection), currentSquare.col);
         if(board.getPiece(possibleNextSquare) === undefined) {
             validMoves.push(possibleNextSquare);
-            
+
             if (currentSquare.row == startingRow) {
                 possibleNextSquare = new Square(currentSquare.row + (2 * pieceDirection), currentSquare.col);
                 if(board.getPiece(possibleNextSquare) === undefined) validMoves.push(possibleNextSquare);
